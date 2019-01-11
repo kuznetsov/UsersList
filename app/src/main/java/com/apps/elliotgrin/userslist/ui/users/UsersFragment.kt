@@ -1,35 +1,30 @@
 package com.apps.elliotgrin.userslist.ui.users
 
-
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-
 import com.apps.elliotgrin.userslist.R
-import org.koin.android.ext.android.inject
+import com.apps.elliotgrin.userslist.data.model.User
+import com.apps.elliotgrin.userslist.ui.base.BaseFragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class UsersFragment : BaseFragment<UsersState, UsersViewModel>(UsersViewModel::class) {
 
-/**
- * A simple [Fragment] subclass.
- *
- */
-class UsersFragment : Fragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_users
 
-    private val viewModel: UsersViewModel by inject()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false)
+    override fun whenState(state: UsersState) = when(state) {
+        is UsersState.StateStopLoading -> stopLoading()
+        is UsersState.StateShowError -> showError(state.error)
+        is UsersState.StateShowUsers -> showUsers(state.users)
     }
 
+    private fun showUsers(users: List<User>) {
+
+    }
+
+    private fun stopLoading() {
+
+    }
+
+    private fun showError(error: String) {
+
+    }
 
 }

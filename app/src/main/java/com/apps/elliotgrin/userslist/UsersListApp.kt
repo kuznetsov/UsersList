@@ -5,7 +5,7 @@ import com.apps.elliotgrin.userslist.di.apiModule
 import com.apps.elliotgrin.userslist.di.usersListApp
 import org.koin.android.ext.android.startKoin
 
-class UsersList : Application() {
+class UsersListApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
