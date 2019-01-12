@@ -15,10 +15,11 @@ abstract class BaseFragment<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
 
     protected abstract val layoutId: Int
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        return inflater.inflate(layoutId, container, false)
-    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(layoutId, container, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

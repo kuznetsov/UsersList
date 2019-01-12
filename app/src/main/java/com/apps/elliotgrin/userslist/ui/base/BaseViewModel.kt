@@ -21,6 +21,8 @@ abstract class BaseViewModel<StateT>: ViewModel() {
 
     val stateLiveData = MutableLiveData<Event<StateT>>()
 
+    protected val bgDispatcher = Dispatchers.IO
+
     protected fun safeLaunch(
         context: CoroutineContext = Dispatchers.Main,
         block: suspend () -> Unit = {}
@@ -31,5 +33,10 @@ abstract class BaseViewModel<StateT>: ViewModel() {
             stopLoading()
             showError(t.localizedMessage)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
     }
 }

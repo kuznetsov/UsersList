@@ -1,31 +1,34 @@
 package com.apps.elliotgrin.userslist.ui.users
 
+import android.util.Log
 import com.apps.elliotgrin.userslist.data.repository.UsersRepository
 import com.apps.elliotgrin.userslist.ui.base.BaseViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.apps.elliotgrin.userslist.util.Event
 import kotlinx.coroutines.withContext
 
 class UsersViewModel(private val usersRepository: UsersRepository) : BaseViewModel<UsersState>() {
 
     override fun onStart() {
-
+        loadUsers()
     }
 
     override fun stopLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        stateLiveData.value = Event(UsersState.StateLoading(false))
     }
 
     override fun showError(error: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        stateLiveData.value = Event(UsersState.StateShowError(error))
     }
 
-    private fun loadUsers() = CoroutineScope(Dispatchers.Main).launch {
-        // show loading
-        val users = withContext(Dispatchers.IO) { usersRepository.fetchUsers() }
-        // stop loading
-        // update state with users
+    private fun loadUsers() = safeLaunch {
+        stateLiveData.value = Event(UsersState.StateLoading(true))
+
+        Log.d("#UsersViewModel", "Start loading")
+        val users = withContext(bgDispatcher) { usersRepository.fetchUsers() }
+        Log.d("#UsersViewModel", "Users: $users")
+
+        stateLiveData.value = Event(UsersState.StateLoading(false))
+        stateLiveData.value = Event(UsersState.StateShowUsers(users))
     }
 
 }

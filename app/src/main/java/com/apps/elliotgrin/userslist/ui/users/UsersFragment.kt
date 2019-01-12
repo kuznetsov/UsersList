@@ -1,5 +1,6 @@
 package com.apps.elliotgrin.userslist.ui.users
 
+import android.widget.Toast
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseFragment
@@ -10,17 +11,17 @@ class UsersFragment : BaseFragment<UsersState, UsersViewModel>(UsersViewModel::c
         get() = R.layout.fragment_users
 
     override fun whenState(state: UsersState) = when(state) {
-        is UsersState.StateStopLoading -> stopLoading()
         is UsersState.StateShowError -> showError(state.error)
         is UsersState.StateShowUsers -> showUsers(state.users)
+        is UsersState.StateLoading -> showLoading(state.isLoading)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+
     }
 
     private fun showUsers(users: List<User>) {
-
-    }
-
-    private fun stopLoading() {
-
+        Toast.makeText(context, users.toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun showError(error: String) {
