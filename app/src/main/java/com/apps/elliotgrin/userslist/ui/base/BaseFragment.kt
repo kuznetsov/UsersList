@@ -23,8 +23,12 @@ abstract class BaseFragment<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         subscribe()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
     }
 
     override fun onStart() {
@@ -42,5 +46,7 @@ abstract class BaseFragment<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
     }
 
     abstract fun whenState(state: StateT) : Unit?
+
+    abstract fun initViews()
 
 }

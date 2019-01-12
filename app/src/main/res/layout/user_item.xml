@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/avatarImageView"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Name Surnameeeeeeeeeeeeeeeeeeeeeeeee"/>
+
+    <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/avatarImageView"
+            android:layout_below="@id/nameTextView"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="email@gmail.com"/>
+
+</RelativeLayout>

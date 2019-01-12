@@ -32,6 +32,7 @@ fun createHttpClient(): OkHttpClient {
 
 fun createConverter(): Converter.Factory {
     val builder = GsonBuilder()
+    builder.serializeNulls()
     builder.setLenient()
     builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
     return GsonConverterFactory.create(builder.create())

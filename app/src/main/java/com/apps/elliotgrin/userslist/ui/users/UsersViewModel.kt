@@ -17,6 +17,7 @@ class UsersViewModel(private val usersRepository: UsersRepository) : BaseViewMod
     }
 
     override fun showError(error: String) {
+        Log.e("#UsersViewModel", "Error loading: $error")
         stateLiveData.value = Event(UsersState.StateShowError(error))
     }
 
