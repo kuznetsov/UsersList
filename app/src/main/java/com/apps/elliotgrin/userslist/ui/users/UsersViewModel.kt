@@ -17,16 +17,13 @@ class UsersViewModel(private val usersRepository: UsersRepository) : BaseViewMod
     }
 
     override fun showError(error: String) {
-        Log.e("#UsersViewModel", "Error loading: $error")
         stateLiveData.value = Event(UsersState.StateShowError(error))
     }
 
     private fun loadUsers() = safeLaunch {
         stateLiveData.value = Event(UsersState.StateLoading(true))
 
-        Log.d("#UsersViewModel", "Start loading")
         val users = withContext(bgDispatcher) { usersRepository.fetchUsers() }
-        Log.d("#UsersViewModel", "Users: $users")
 
         stateLiveData.value = Event(UsersState.StateLoading(false))
         stateLiveData.value = Event(UsersState.StateShowUsers(users))

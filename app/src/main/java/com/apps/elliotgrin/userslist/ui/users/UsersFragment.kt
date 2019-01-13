@@ -25,13 +25,11 @@ class UsersFragment : BaseFragment<UsersState, UsersViewModel>(UsersViewModel::c
     }
 
     private fun showLoading(isLoading: Boolean) {
-        Log.d("#MainActivity", "showLoading($isLoading)")
         progressBar.setVisible(isLoading)
         recyclerView.setVisible(!isLoading)
     }
 
     private fun showUsers(users: List<User>) {
-        Log.d("#MainActivity", "showUsers(${users.size})")
         context?.let {
             val adapter = UsersRecyclerAdapter(users, it)
             recyclerView.adapter = adapter
