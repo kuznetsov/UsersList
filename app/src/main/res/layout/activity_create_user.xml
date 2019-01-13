@@ -11,33 +11,31 @@
     tools:context=".ui.create.CreateUserActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/firstNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="First name"
-        android:inputType="textPersonName" />
+        android:hint="First name" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/lastNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Last name"
-        android:inputType="textPersonName" />
+        android:hint="Last name" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textPersonName" />
+        android:inputType="textEmailAddress" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createUserButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

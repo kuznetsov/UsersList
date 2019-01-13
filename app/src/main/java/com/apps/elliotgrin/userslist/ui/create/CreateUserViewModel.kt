@@ -7,12 +7,13 @@ import com.apps.elliotgrin.userslist.util.Event
 class CreateUserViewModel(private val user: User?) : BaseViewModel<CreateUserState>() {
 
     override fun onStart() {
-        if (user == null) {
-            stateLiveData.value = Event(CreateUserState.StateUserIsNull)
-        } else {
-            stateLiveData.value = Event(CreateUserState.StateUserIsNotNull(user))
-        }
+        user?.let { stateLiveData.value = Event(CreateUserState.StateUserIsNotNull(it)) }
     }
+
+    fun createUser(user: User) {
+        
+    }
+
 
     override fun stopLoading() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

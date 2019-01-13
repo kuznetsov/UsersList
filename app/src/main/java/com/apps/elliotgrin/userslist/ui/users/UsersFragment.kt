@@ -25,9 +25,11 @@ class UsersFragment : BaseFragment<UsersState, UsersViewModel>(UsersViewModel::c
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
-        fab.setOnClickListener {
-            val intent = CreateUserActivity.newIntent(context!!)
-            startActivity(intent)
+        context?.let { context ->
+            fab.setOnClickListener {
+                val intent = CreateUserActivity.newIntent(context)
+                startActivity(intent)
+            }
         }
     }
 

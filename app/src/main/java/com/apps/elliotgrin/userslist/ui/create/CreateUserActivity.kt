@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_create_user.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -19,8 +20,17 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
         get() = R.layout.activity_create_user
 
     override fun whenState(state: CreateUserState): Unit? = when(state) {
-        is CreateUserState.StateUserIsNull -> Toast.makeText(this, "User is null", Toast.LENGTH_SHORT).show()
-        is CreateUserState.StateUserIsNotNull -> Toast.makeText(this, "User is not null: ${state.user}", Toast.LENGTH_SHORT).show()
+        is CreateUserState.StateUserIsNotNull -> fillUserInputs(state.user)
+    }
+
+    override fun initViews() {
+        createUserButton.setOnClickListener {  }
+    }
+
+    private fun fillUserInputs(user: User) {
+        firstNameEditText.setText(user.firstName)
+        lastNameEditText.setText(user.lastName)
+        emailEditText.setText(user.email)
     }
 
     companion object {

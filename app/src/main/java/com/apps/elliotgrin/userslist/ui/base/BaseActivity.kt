@@ -16,6 +16,7 @@ abstract class BaseActivity<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
         super.onCreate(savedInstanceState)
         setContentView(layoutId)
         subscribe()
+        initViews()
     }
 
     override fun onStart() {
@@ -32,4 +33,6 @@ abstract class BaseActivity<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
     }
 
     abstract fun whenState(state: StateT) : Unit?
+
+    abstract fun initViews()
 }
