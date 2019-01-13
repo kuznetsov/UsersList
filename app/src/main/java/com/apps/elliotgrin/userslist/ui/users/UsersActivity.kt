@@ -1,5 +1,7 @@
 package com.apps.elliotgrin.userslist.ui.users
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.elliotgrin.userslist.R
@@ -9,10 +11,17 @@ import com.apps.elliotgrin.userslist.ui.create.CreateUserActivity
 import com.apps.elliotgrin.userslist.util.ext.setVisible
 import kotlinx.android.synthetic.main.activity_users.*
 
+private const val CREATE_USER_REQUEST_CODE = 1
+private const val POSITION_NEW_USER = -1
+private const val ARG_POSITION = "arg:position"
+private const val ARG_USER = "arg:user"
+
 class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::class) {
 
     override val layoutId: Int
         get() = R.layout.activity_users
+
+    private lateinit var adapter: UsersRecyclerAdapter
 
     override fun renderState(state: UsersState) = when (state) {
         is UsersState.StateLoading -> showLoading(state.isLoading)
@@ -26,7 +35,25 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
-        fab.setOnClickListener { startCreateUserActivity(null) }
+        fab.setOnClickListener { startCreateUserActivity(null, POSITION_NEW_USER) }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CREATE_USER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val position = data?.getIntExtra(ARG_POSITION, POSITION_NEW_USER) ?: POSITION_NEW_USER
+            val user = data?.getParcelableExtra<User>(ARG_USER)
+
+            user?.let {
+                if (position == POSITION_NEW_USER) {
+                    viewModel.addUser(it)
+                    adapter.addUser(it)
+                }
+                else {
+                    viewModel.updateUser(it, position)
+                    adapter.updateUser(it, position)
+                }
+            }
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -35,7 +62,7 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
     }
 
     private fun showUsers(users: List<User>) {
-        val adapter = UsersRecyclerAdapter(users, this) { user -> startCreateUserActivity(user) }
+        adapter = UsersRecyclerAdapter(ArrayList(users), this) { user, position -> startCreateUserActivity(user, position) }
         recyclerView.adapter = adapter
     }
 
@@ -43,8 +70,8 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
-    private fun startCreateUserActivity(user: User?) {
-        val intent = CreateUserActivity.newIntent(this, user)
-        startActivity(intent)
+    private fun startCreateUserActivity(user: User?, position: Int) {
+        val intent = CreateUserActivity.newIntent(this, user, position)
+        startActivityForResult(intent, CREATE_USER_REQUEST_CODE)
     }
 }

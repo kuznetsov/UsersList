@@ -7,8 +7,8 @@ class UsersRepository(private val api: Api) {
 
     suspend fun fetchUsers(): List<User> = api.fetchUsers().await().sortedBy { user -> user.id }
 
-    suspend fun createUser(user: User) = api.createUser(user).await()
+    suspend fun createUser(user: User): User = api.createUser(user).await()
 
-    suspend fun updateUser(user: User) = api.updateUser(user.id, user).await()
+    suspend fun updateUser(user: User): User = api.updateUser(user.id, user).await()
 
 }

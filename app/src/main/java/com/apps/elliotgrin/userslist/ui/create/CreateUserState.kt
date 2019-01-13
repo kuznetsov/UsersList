@@ -7,5 +7,5 @@ sealed class CreateUserState {
     data class StateLoading(val isLoading: Boolean) : CreateUserState()
     data class StateShowError(val error: String) : CreateUserState()
 
-    object StateUserIsCreated : CreateUserState()
+    data class StateUserIsCreated(val user: User) : CreateUserState()
 }

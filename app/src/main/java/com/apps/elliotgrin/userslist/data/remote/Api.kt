@@ -9,8 +9,8 @@ interface Api {
     fun fetchUsers(): Deferred<List<User>>
 
     @POST("users.json")
-    fun createUser(@Body user: User): Deferred<Unit>
+    fun createUser(@Body user: User): Deferred<User>
 
     @PATCH("users/{id}.json")
-    fun updateUser(@Path("id") id: Int, @Body user: User): Deferred<Unit>
+    fun updateUser(@Path("id") id: Int, @Body user: User): Deferred<User>
 }

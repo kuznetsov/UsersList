@@ -1,5 +1,6 @@
 package com.apps.elliotgrin.userslist.ui.create
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
@@ -8,16 +9,19 @@ import android.widget.Toast
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity
+import com.apps.elliotgrin.userslist.ui.users.UsersViewModel
 import kotlinx.android.synthetic.main.activity_create_user.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 private const val ARG_USER = "arg:user"
+private const val ARG_POSITION = "arg:position"
 private const val NEW_USER_ID = -1
 
 class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(CreateUserViewModel::class) {
 
     private val intentUser: User? by lazy { intent?.extras?.getParcelable<User>(ARG_USER) }
+    private val intentPosition: Int? by lazy { intent?.extras?.getInt(ARG_POSITION) }
 
     override val viewModel: CreateUserViewModel by viewModel { parametersOf(intentUser) }
 
@@ -28,7 +32,7 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
         is CreateUserState.StateUserIsNotNull -> fillUserInputs(state.user)
         is CreateUserState.StateShowError -> showError(state.error)
         is CreateUserState.StateLoading -> showLoading(state.isLoading)
-        is CreateUserState.StateUserIsCreated -> finish()
+        is CreateUserState.StateUserIsCreated -> returnResult(state.user)
     }
 
     override fun initViews() {
@@ -79,10 +83,19 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
         progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
+    private fun returnResult(user: User) {
+        val intent = Intent()
+        intent.putExtra(ARG_USER, user)
+        intent.putExtra(ARG_POSITION, intentPosition)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
     companion object {
-        fun newIntent(context: Context, user: User? = null): Intent {
+        fun newIntent(context: Context, user: User? = null, position: Int): Intent {
             val intent = Intent(context, CreateUserActivity::class.java)
             intent.putExtra(ARG_USER, user)
+            intent.putExtra(ARG_POSITION, position)
             return intent
         }
     }

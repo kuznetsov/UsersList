@@ -33,4 +33,8 @@ class UsersViewModel(private val usersRepository: UsersRepository) : BaseViewMod
         stateLiveData.value = Event(UsersState.StateShowUsers(users!!))
     }
 
+    fun addUser(user: User) = users?.add(user)
+
+    fun updateUser(user: User, position: Int) = users?.set(position, user)
+
 }

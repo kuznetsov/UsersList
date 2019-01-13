@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.user_item.view.*
 
 class UsersRecyclerAdapter(
 
-    val data: List<User>,
-    val context: Context,
-    val editUser: (User) -> Unit
+    private val data: ArrayList<User>,
+    private val context: Context,
+    private val editUser: (User, Int) -> Unit
 
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemCount(): Int = data.size
@@ -27,7 +27,17 @@ class UsersRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(data[position]) { editUser(data[position]) }
+        holder.bind(data[position]) { editUser(data[position], position) }
+
+    fun addUser(user: User) {
+        data.add(user)
+        notifyItemInserted(data.size - 1)
+    }
+
+    fun updateUser(user: User, position: Int) {
+        data[position] = user
+        notifyItemChanged(position)
+    }
 }
 
 class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

@@ -14,14 +14,14 @@ class CreateUserViewModel(private val user: User?, private val repository: Users
 
     fun createUser(user: User) = safeLaunch {
             stateLiveData.value = Event(CreateUserState.StateLoading(true))
-            repository.createUser(user)
-            stateLiveData.value = Event(CreateUserState.StateUserIsCreated)
+            val newUser = repository.createUser(user)
+            stateLiveData.value = Event(CreateUserState.StateUserIsCreated(newUser))
         }
 
     fun updateUser(user: User) = safeLaunch {
             stateLiveData.value = Event(CreateUserState.StateLoading(true))
-            repository.updateUser(user)
-            stateLiveData.value = Event(CreateUserState.StateUserIsCreated)
+            val newUser = repository.updateUser(user)
+            stateLiveData.value = Event(CreateUserState.StateUserIsCreated(newUser))
         }
 
     override fun stopLoading() {
