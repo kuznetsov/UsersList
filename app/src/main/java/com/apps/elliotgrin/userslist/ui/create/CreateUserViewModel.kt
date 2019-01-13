@@ -1,25 +1,34 @@
 package com.apps.elliotgrin.userslist.ui.create
 
 import com.apps.elliotgrin.userslist.data.model.User
+import com.apps.elliotgrin.userslist.data.repository.UsersRepository
 import com.apps.elliotgrin.userslist.ui.base.BaseViewModel
 import com.apps.elliotgrin.userslist.util.Event
 
-class CreateUserViewModel(private val user: User?) : BaseViewModel<CreateUserState>() {
+class CreateUserViewModel(private val user: User?, private val repository: UsersRepository) :
+    BaseViewModel<CreateUserState>() {
 
     override fun onStart() {
         user?.let { stateLiveData.value = Event(CreateUserState.StateUserIsNotNull(it)) }
     }
 
-    fun createUser(user: User) {
-        
-    }
+    fun createUser(user: User) = safeLaunch {
+            stateLiveData.value = Event(CreateUserState.StateLoading(true))
+            repository.createUser(user)
+            stateLiveData.value = Event(CreateUserState.StateUserIsCreated)
+        }
 
+    fun updateUser(user: User) = safeLaunch {
+            stateLiveData.value = Event(CreateUserState.StateLoading(true))
+            repository.updateUser(user)
+            stateLiveData.value = Event(CreateUserState.StateUserIsCreated)
+        }
 
     override fun stopLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        stateLiveData.value = Event(CreateUserState.StateLoading(false))
     }
 
     override fun showError(error: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        stateLiveData.value = Event(CreateUserState.StateShowError(error))
     }
 }

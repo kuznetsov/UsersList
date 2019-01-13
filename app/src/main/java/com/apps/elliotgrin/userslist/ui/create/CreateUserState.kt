@@ -4,4 +4,8 @@ import com.apps.elliotgrin.userslist.data.model.User
 
 sealed class CreateUserState {
     data class StateUserIsNotNull(val user: User) : CreateUserState()
+    data class StateLoading(val isLoading: Boolean) : CreateUserState()
+    data class StateShowError(val error: String) : CreateUserState()
+
+    object StateUserIsCreated : CreateUserState()
 }

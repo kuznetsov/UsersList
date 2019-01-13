@@ -13,7 +13,7 @@ val appModule = module {
     viewModel { UsersViewModel(get()) }
 
     // create user ViewModel
-    viewModel { (user: User?) -> CreateUserViewModel(user) }
+    viewModel { (user: User?) -> CreateUserViewModel(user, get()) }
 
     // users repository
     single { UsersRepository(get()) }

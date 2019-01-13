@@ -9,6 +9,5 @@ data class User(
     val firstName: String,
     val lastName: String,
     val email: String,
-    val avatarUrl: String?,
-    val url: String
+    val avatarUrl: String?
 ) : Parcelable

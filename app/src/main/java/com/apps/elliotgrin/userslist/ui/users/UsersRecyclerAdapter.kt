@@ -12,7 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import kotlinx.android.synthetic.main.user_item.view.*
 
-class UsersRecyclerAdapter(val data: List<User>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class UsersRecyclerAdapter(
+
+    val data: List<User>,
+    val context: Context,
+    val editUser: (User) -> Unit
+
+) : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,11 +26,12 @@ class UsersRecyclerAdapter(val data: List<User>, val context: Context) : Recycle
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(data[position]) { editUser(data[position]) }
 }
 
 class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(user: User) {
+    fun bind(user: User, editUser: () -> Unit) {
         val fullName = user.firstName + " " + user.lastName
         view.nameTextView.text = fullName
         view.emailTextView.text = user.email
@@ -35,8 +42,10 @@ class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
                 .into(view.avatarImageView)
         } else {
             val context = view.avatarImageView.context
-            val drawableIcon = ContextCompat.getDrawable(context, R.drawable.ic_launcher_foreground)
+            val drawableIcon = ContextCompat.getDrawable(context, R.drawable.ic_default_avatar)
             view.avatarImageView.setImageDrawable(drawableIcon)
         }
+
+        view.setOnClickListener { editUser() }
     }
 }

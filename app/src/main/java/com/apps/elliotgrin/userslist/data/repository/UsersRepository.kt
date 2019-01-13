@@ -5,7 +5,7 @@ import com.apps.elliotgrin.userslist.data.remote.Api
 
 class UsersRepository(private val api: Api) {
 
-    suspend fun fetchUsers(): List<User> = api.fetchUsers().await()
+    suspend fun fetchUsers(): List<User> = api.fetchUsers().await().sortedBy { user -> user.id }
 
     suspend fun createUser(user: User) = api.createUser(user).await()
 
