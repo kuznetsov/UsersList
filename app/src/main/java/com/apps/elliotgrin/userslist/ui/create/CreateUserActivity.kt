@@ -2,6 +2,7 @@ package com.apps.elliotgrin.userslist.ui.create
 
 import android.content.Context
 import android.content.Intent
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.apps.elliotgrin.userslist.R
@@ -31,8 +32,23 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
     }
 
     override fun initViews() {
-        createUserButton.text = if (intentUser == null) "Create user" else "Update user"
+        val isCreate = intentUser == null
+
+        supportActionBar?.title = if (isCreate) "Create User" else "Update User"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        createUserButton.text = if (isCreate) "Create user" else "Update user"
         createUserButton.setOnClickListener { createUser() }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item?.itemId == android.R.id.home) {
+            finish()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     private fun fillUserInputs(user: User) {

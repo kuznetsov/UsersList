@@ -21,6 +21,8 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
     }
 
     override fun initViews() {
+        supportActionBar?.title = "Users List"
+
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
