@@ -1,5 +1,9 @@
 package com.apps.elliotgrin.userslist.data.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class User(
     val id: Int,
     val firstName: String,
@@ -9,4 +13,4 @@ data class User(
     val createdAt: String,
     val updatedAt: String,
     val url: String
-)
+) : Parcelable

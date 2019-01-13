@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseFragment
+import com.apps.elliotgrin.userslist.ui.create.CreateUserActivity
 import com.apps.elliotgrin.userslist.util.ext.setVisible
 import kotlinx.android.synthetic.main.fragment_users.*
 import kotlinx.android.synthetic.main.fragment_users_main_content.*
@@ -23,6 +24,11 @@ class UsersFragment : BaseFragment<UsersState, UsersViewModel>(UsersViewModel::c
     override fun initViews() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
+
+        fab.setOnClickListener {
+            val intent = CreateUserActivity.newIntent(context!!)
+            startActivity(intent)
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

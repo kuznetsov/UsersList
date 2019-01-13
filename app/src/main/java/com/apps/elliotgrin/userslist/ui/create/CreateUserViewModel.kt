@@ -1,0 +1,24 @@
+package com.apps.elliotgrin.userslist.ui.create
+
+import com.apps.elliotgrin.userslist.data.model.User
+import com.apps.elliotgrin.userslist.ui.base.BaseViewModel
+import com.apps.elliotgrin.userslist.util.Event
+
+class CreateUserViewModel(private val user: User?) : BaseViewModel<CreateUserState>() {
+
+    override fun onStart() {
+        if (user == null) {
+            stateLiveData.value = Event(CreateUserState.StateUserIsNull)
+        } else {
+            stateLiveData.value = Event(CreateUserState.StateUserIsNotNull(user))
+        }
+    }
+
+    override fun stopLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showError(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
