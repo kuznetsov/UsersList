@@ -34,7 +34,7 @@ abstract class BaseFragment<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
     override fun onStart() {
         super.onStart()
 
-        viewModel.onStart()
+        viewModel.onCreate()
     }
 
     private fun subscribe() {

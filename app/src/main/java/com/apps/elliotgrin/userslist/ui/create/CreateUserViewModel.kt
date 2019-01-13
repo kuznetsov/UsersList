@@ -8,7 +8,7 @@ import com.apps.elliotgrin.userslist.util.Event
 class CreateUserViewModel(private val user: User?, private val repository: UsersRepository) :
     BaseViewModel<CreateUserState>() {
 
-    override fun onStart() {
+    override fun onCreate() {
         user?.let { stateLiveData.value = Event(CreateUserState.StateUserIsNotNull(it)) }
     }
 

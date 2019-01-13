@@ -1,5 +1,6 @@
 package com.apps.elliotgrin.userslist.ui.users
 
+import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.data.repository.UsersRepository
 import com.apps.elliotgrin.userslist.ui.base.BaseViewModel
 import com.apps.elliotgrin.userslist.util.Event
@@ -7,8 +8,11 @@ import kotlinx.coroutines.withContext
 
 class UsersViewModel(private val usersRepository: UsersRepository) : BaseViewModel<UsersState>() {
 
-    override fun onStart() {
-        loadUsers()
+    private var users: ArrayList<User>? = null
+
+    override fun onCreate() {
+        if (users == null) loadUsers()
+        else stateLiveData.value = Event(UsersState.StateShowUsers(users!!))
     }
 
     override fun stopLoading() {
@@ -22,10 +26,11 @@ class UsersViewModel(private val usersRepository: UsersRepository) : BaseViewMod
     private fun loadUsers() = safeLaunch {
         stateLiveData.value = Event(UsersState.StateLoading(true))
 
-        val users = withContext(bgDispatcher) { usersRepository.fetchUsers() }
+        val usersList = withContext(bgDispatcher) { usersRepository.fetchUsers() }
+        users = ArrayList(usersList)
 
         stateLiveData.value = Event(UsersState.StateLoading(false))
-        stateLiveData.value = Event(UsersState.StateShowUsers(users))
+        stateLiveData.value = Event(UsersState.StateShowUsers(users!!))
     }
 
 }

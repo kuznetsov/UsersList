@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel<StateT>: ViewModel() {
 
-    abstract fun onStart()
+    abstract fun onCreate()
 
     abstract fun stopLoading()
 

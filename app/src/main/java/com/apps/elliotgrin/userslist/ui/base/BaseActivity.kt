@@ -14,14 +14,12 @@ abstract class BaseActivity<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(layoutId)
         subscribe()
         initViews()
-    }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.onStart()
+        viewModel.onCreate()
     }
 
     private fun subscribe() {
