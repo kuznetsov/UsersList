@@ -14,7 +14,7 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
     override val layoutId: Int
         get() = R.layout.activity_users
 
-    override fun whenState(state: UsersState) = when (state) {
+    override fun renderState(state: UsersState) = when (state) {
         is UsersState.StateLoading -> showLoading(state.isLoading)
         is UsersState.StateShowUsers -> showUsers(state.users)
         is UsersState.StateShowError -> showError(state.error)

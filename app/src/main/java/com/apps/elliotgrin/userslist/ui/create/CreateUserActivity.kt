@@ -24,7 +24,7 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
     override val layoutId: Int
         get() = R.layout.activity_create_user
 
-    override fun whenState(state: CreateUserState): Unit? = when(state) {
+    override fun renderState(state: CreateUserState): Unit? = when(state) {
         is CreateUserState.StateUserIsNotNull -> fillUserInputs(state.user)
         is CreateUserState.StateShowError -> showError(state.error)
         is CreateUserState.StateLoading -> showLoading(state.isLoading)

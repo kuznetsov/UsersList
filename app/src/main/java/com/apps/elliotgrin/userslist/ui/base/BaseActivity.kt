@@ -25,12 +25,12 @@ abstract class BaseActivity<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
     private fun subscribe() {
         viewModel.stateLiveData.observe(this, Observer { event->
             event.getContentIfNotHandled()?.let { state->
-                whenState(state)
+                renderState(state)
             }
         })
     }
 
-    abstract fun whenState(state: StateT) : Unit?
+    abstract fun renderState(state: StateT) : Unit?
 
     abstract fun initViews()
 }
