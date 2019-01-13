@@ -1,6 +1,5 @@
 package com.apps.elliotgrin.userslist.ui.users
 
-import android.util.Log
 import com.apps.elliotgrin.userslist.data.repository.UsersRepository
 import com.apps.elliotgrin.userslist.ui.base.BaseViewModel
 import com.apps.elliotgrin.userslist.util.Event

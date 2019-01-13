@@ -7,6 +7,7 @@ import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseFragment
 import com.apps.elliotgrin.userslist.util.ext.setVisible
 import kotlinx.android.synthetic.main.fragment_users.*
+import kotlinx.android.synthetic.main.fragment_users_main_content.*
 
 class UsersFragment : BaseFragment<UsersState, UsersViewModel>(UsersViewModel::class) {
 
