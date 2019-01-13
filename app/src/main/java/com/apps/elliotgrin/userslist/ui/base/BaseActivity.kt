@@ -6,7 +6,8 @@ import androidx.lifecycle.Observer
 import org.koin.android.viewmodel.ext.android.viewModelByClass
 import kotlin.reflect.KClass
 
-abstract class BaseActivity<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz: KClass<ViewModelT>) : AppCompatActivity() {
+abstract class BaseActivity<StateT, out ViewModelT : BaseViewModel<StateT>>(clazz: KClass<ViewModelT>) :
+    AppCompatActivity() {
 
     protected open val viewModel: ViewModelT by viewModelByClass(clazz)
 
@@ -23,14 +24,14 @@ abstract class BaseActivity<StateT, out ViewModelT: BaseViewModel<StateT>>(clazz
     }
 
     private fun subscribe() {
-        viewModel.stateLiveData.observe(this, Observer { event->
-            event.getContentIfNotHandled()?.let { state->
+        viewModel.stateLiveData.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let { state ->
                 renderState(state)
             }
         })
     }
 
-    abstract fun renderState(state: StateT) : Unit?
+    abstract fun renderState(state: StateT): Unit?
 
     abstract fun initViews()
 }

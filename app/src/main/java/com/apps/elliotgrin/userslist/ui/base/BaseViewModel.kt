@@ -9,7 +9,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel<StateT>: ViewModel() {
+abstract class BaseViewModel<StateT> : ViewModel() {
 
     abstract fun onCreate()
 

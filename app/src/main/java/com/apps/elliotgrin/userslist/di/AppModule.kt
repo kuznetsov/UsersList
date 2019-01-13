@@ -20,4 +20,4 @@ val appModule = module {
 
 }
 
-val usersListApp  = listOf(appModule)
+val usersListApp = listOf(appModule)
