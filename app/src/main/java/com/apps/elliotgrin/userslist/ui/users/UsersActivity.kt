@@ -8,13 +8,9 @@ import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity
 import com.apps.elliotgrin.userslist.ui.create.CreateUserActivity
+import com.apps.elliotgrin.userslist.util.constants.*
 import com.apps.elliotgrin.userslist.util.ext.setVisible
 import kotlinx.android.synthetic.main.activity_users.*
-
-private const val CREATE_USER_REQUEST_CODE = 1
-private const val POSITION_NEW_USER = -1
-private const val ARG_POSITION = "arg:position"
-private const val ARG_USER = "arg:user"
 
 class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::class) {
 
@@ -47,8 +43,7 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
                 if (position == POSITION_NEW_USER) {
                     viewModel.addUser(it)
                     adapter.addUser(it)
-                }
-                else {
+                } else {
                     viewModel.updateUser(it, position)
                     adapter.updateUser(it, position)
                 }
@@ -62,7 +57,12 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
     }
 
     private fun showUsers(users: List<User>) {
-        adapter = UsersRecyclerAdapter(ArrayList(users), this) { user, position -> startCreateUserActivity(user, position) }
+        adapter = UsersRecyclerAdapter(ArrayList(users), this) { user, position ->
+            startCreateUserActivity(
+                user,
+                position
+            )
+        }
         recyclerView.adapter = adapter
     }
 

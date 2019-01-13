@@ -9,14 +9,10 @@ import android.widget.Toast
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity
-import com.apps.elliotgrin.userslist.ui.users.UsersViewModel
+import com.apps.elliotgrin.userslist.util.constants.*
 import kotlinx.android.synthetic.main.activity_create_user.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-
-private const val ARG_USER = "arg:user"
-private const val ARG_POSITION = "arg:position"
-private const val NEW_USER_ID = -1
 
 class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(CreateUserViewModel::class) {
 
@@ -28,7 +24,7 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
     override val layoutId: Int
         get() = R.layout.activity_create_user
 
-    override fun renderState(state: CreateUserState): Unit? = when(state) {
+    override fun renderState(state: CreateUserState): Unit? = when (state) {
         is CreateUserState.StateUserIsNotNull -> fillUserInputs(state.user)
         is CreateUserState.StateShowError -> showError(state.error)
         is CreateUserState.StateLoading -> showLoading(state.isLoading)
