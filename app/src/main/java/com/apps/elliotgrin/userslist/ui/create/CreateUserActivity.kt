@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity

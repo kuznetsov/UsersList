@@ -22,7 +22,7 @@ class UsersRecyclerAdapter(
     override fun getItemCount(): Int = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.user_item, null, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.user_item, parent, false)
         return ViewHolder(view)
     }
 
