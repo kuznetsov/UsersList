@@ -18,15 +18,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-6dp"
             android:indeterminate="true"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:visibility="invisible" />
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 
