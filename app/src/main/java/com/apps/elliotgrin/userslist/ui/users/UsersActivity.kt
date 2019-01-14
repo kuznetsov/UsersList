@@ -2,14 +2,15 @@ package com.apps.elliotgrin.userslist.ui.users
 
 import android.app.Activity
 import android.content.Intent
-import android.widget.Toast
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity
 import com.apps.elliotgrin.userslist.ui.create.CreateUserActivity
 import com.apps.elliotgrin.userslist.util.constants.*
-import com.apps.elliotgrin.userslist.util.ext.setVisible
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_users.*
 
 class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::class) {
@@ -30,6 +31,8 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+
+        recyclerView.addOnScrollListener(OnScrollListener())
 
         fab.setOnClickListener { startCreateUserActivity(null, POSITION_NEW_USER) }
     }
@@ -52,8 +55,8 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
     }
 
     private fun showLoading(isLoading: Boolean) {
-        progressBar.setVisible(isLoading)
-        recyclerView.setVisible(!isLoading)
+        progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
     }
 
     private fun showUsers(users: List<User>) {
@@ -67,11 +70,20 @@ class UsersActivity : BaseActivity<UsersState, UsersViewModel>(UsersViewModel::c
     }
 
     private fun showError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        Snackbar.make(usersCoordinatorLayout, error, Snackbar.LENGTH_LONG).show()
     }
 
     private fun startCreateUserActivity(user: User?, position: Int) {
         val intent = CreateUserActivity.newIntent(this, user, position)
         startActivityForResult(intent, CREATE_USER_REQUEST_CODE)
+    }
+
+    inner class OnScrollListener() : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            if (dy > 0) fab.hide()
+            else fab.show()
+
+            super.onScrolled(recyclerView, dx, dy)
+        }
     }
 }

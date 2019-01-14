@@ -10,6 +10,7 @@ import com.apps.elliotgrin.userslist.R
 import com.apps.elliotgrin.userslist.data.model.User
 import com.apps.elliotgrin.userslist.ui.base.BaseActivity
 import com.apps.elliotgrin.userslist.util.constants.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_create_user.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -72,7 +73,7 @@ class CreateUserActivity : BaseActivity<CreateUserState, CreateUserViewModel>(Cr
     }
 
     private fun showError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        Snackbar.make(createUserLinearLayout, error, Snackbar.LENGTH_LONG).show()
     }
 
     private fun showLoading(isLoading: Boolean) {
